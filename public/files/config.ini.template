@@ -1,0 +1,12 @@
+; the spacing of successive LEDs in the grid (mm)
+LEDgap=
+; the separation of the LED array and sample (mm)
+LEDheight=
+; the side length of the grid (# LEDs)
+arraysize=
+; the wavelength of the incident light (m)
+wavelength=
+; the NA of the LPF lens
+NA=
+; physical pixel size on the camera sensor (m)
+spsize=
