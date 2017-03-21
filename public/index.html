@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="fpm-website">
+<head>
+    <link rel="stylesheet" href="libs/bootstrap-css/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Compute server for a Fourier Ptychography project by Super Resolution 6">
+    <meta name="author" content="Sujay Tadwalkar">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <base href="/">
+
+    <script src="libs/angular/angular.min.js"></script>
+    <script src="libs/angular-route/angular-route.min.js"></script>
+    <script src="libs/angular-resource/angular-resource.min.js"></script>
+    <script src="libs/ng-file-upload/ng-file-upload.min.js"></script>
+    <script src="release/app.min.js"></script>
+    <title>Super Resolution 6: LITScope Server</title>
+</head>
+
+<body>
+
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                <span><img src="img/logo.png" style="width:25px"></span>
+                Super Resolution 6
+            </a>
+        </div>
+
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/">About</a></li>
+                <li><a href="/submit_job">Submit Job</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<div class="jumbotron" style="background-image:url('img/banner.jpg'); background-position:center top; width:100%">
+    <div class="container" align="center"><br>
+        <h2 style="letter-spacing: 3px">LITScope</h2>
+        <h1 style="letter-spacing: 3px; font-size: 6em">Compute Server</h1>
+    </div>
+</div>
+
+<div class="container">
+    <div ng-view>
+    </div>
+</div>
+</body>
+</html>

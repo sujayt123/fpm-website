@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-md-3">
+        <br>
+        <br>
+        <br>
+        <br>
+        <center><img src="img/mosaic.png"></center>
+        <center><small>Sample dataset mosaic</small></center>
+    </div>
+    <div class="col-md-offset-1 col-md-8">
+        <legend><center><h1>Image Reconstruction Request</h1></center></legend>
+        <form name="jobRequestForm">
+            <div class="form-group" ng-class="{ 'has-error': jobRequestForm.email.$invalid && jobRequestForm.email.$dirty }">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" name="email" ng-model="email" aria-describedby="emailHelp" placeholder="Enter email" required>
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="zippedImgs">Image Dataset</label>
+                <input type="file" class="form-control-file" ngf-select ng-model="zippedImgs" ngf-max-size="50MB" id="zippedImgs" name="zippedImgs" aria-describedby="fileHelp" required>
+                <small id="fileHelp" class="form-text text-muted">Must be a gzipped tarball of images named "ab.ext", where a and b correspond to the row and column of the LED used to capture the image. </small>
+            </div>
+
+            <div class="form-group">
+                <label for="configIni">Configuration File</label>
+                <input type="file" class="form-control-file" ngf-select ng-model="configIni" ngf-max-size="20KB" id="configIni" name="configIni" aria-describedby="fileHelp2" required>
+                <small id="fileHelp2" class="form-text text-muted">Must be a configuration .ini file that follows the example of the provided <a href="files/config.ini.template" download target="_self">template</a>. </small>
+            </div>
+
+            <button type="submit" class="btn btn-primary" ng-disabled="!jobRequestForm.$valid" ng-click="controller.submitForm(zippedImgs, configIni)">Submit</button>
+            <span class="progress" ng-show="zippedImgs.progress >= 0">
+            <div style="width:{{zippedImgs.progress}}%" ng-bind="zippedImgs.progress + '%'"></div>
+            </span>
+            <span ng-show="zippedImgs.result">Upload Successful</span>
+            <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+
+        </form>
+    </div>
+</div>
