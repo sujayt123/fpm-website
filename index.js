@@ -7,7 +7,7 @@ var express = require('express'),
 app.use(logger('default'));
 app.use(express.static(__dirname + '/public'));
 
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 80;
 
 require('./app/routes.js').setup(app);
 

@@ -7,14 +7,14 @@ function objectRecover = runAlgorithm(dirName, LEDgap, LEDheight, arraysize, wav
     imSeqLowRes = zeros(xlength, ylength, length(fileNames));
     
     % load exposure times into memory.
-    %load('exposureTimes.mat');
-    %exposureTimes_flattened = reshape(exposureTimes.',1,[]);
+    load('exposureTimes.mat');
+    exposureTimes_flattened = reshape(exposureTimes3.',1,[]);
     
-    % for now arraysize = 7 has been hardcoded into the exposure scaling.
+    % for now arraysize = 3 has been hardcoded into the exposure scaling.
     for i = 1: length(fileNames)
         sampleImg = imread(strcat(dirName, '/', char(fileNames(i))));
         % no need to resize if already a square
-        imSeqLowRes(:, :, i) = rgb2gray(sampleImg); %./ (exposureTimes_flattened(i) / exposureTimes_flattened(ceil(fileNames / 2)));        
+        imSeqLowRes(:, :, i) = rgb2gray(sampleImg)./ (exposureTimes_flattened(i) / exposureTimes_flattened(5));        
     end    
     
     % Create an image mosaic corresponding to the LED vector's raw input

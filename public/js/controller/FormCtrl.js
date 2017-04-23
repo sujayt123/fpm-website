@@ -9,6 +9,7 @@ FormCtrl.$inject = ['ComputeService', 'Upload', 'sharedProperties', '$httpParamS
 
 function FormCtrl(ComputeService, Upload, sharedProperties, $httpParamSerializer, $scope, $location) {
     this.submitForm = function(zippedImgs, configIni) {
+		console.log("I HAVE INVOKED THE SUBMIT FORM FUNCTION.")
         zippedImgs.upload =  Upload.upload({
                                 url: '/upload',
                                 data: {zippedImgs: zippedImgs, configIni: configIni, email: $scope.email}

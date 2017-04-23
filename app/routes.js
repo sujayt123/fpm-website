@@ -33,7 +33,7 @@ var emailhandler = require('nodemailer'),
         service: "Gmail",
         auth: {
             user: "superresolution6@gmail.com",
-            pass: "???????????????????????"
+            pass: "fouriertransform"
         }
     }),
     upload = multer({
@@ -78,27 +78,37 @@ function uploadImage(req, res, next)
         var config = ini.parse(fs.readFileSync(configFile.path, 'utf-8'));;
         var matlabCommand = "\"cd app/fpm_code; runAlgorithm(\'" + extractionPath + "\'"  + "," + config.LEDgap + "," + config.LEDheight + "," + config.arraysize + "," + config.wavelength + "," + config.NA + "," + config.spsize + ")"
         console.log(matlabCommand);
-        exec("matlab -nojvm -nosplash -nodisplay -r " + matlabCommand + "; exit; \"",
+        exec("matlab -nodesktop -r " + matlabCommand + "; exit; \"",
             function(err, stdout, stderr) {
+				res.send('OK');
                 console.log(stdout);
                 console.log(stderr);
                 console.log("Ran something in matlab");
-                var mailOptions = {
-                    from: '"FPM Utilities" <superresolution6@gmail.com>',
-                    to: req.body['email'] || "sujayt123@gmail.com",
-                    subject: 'Automated Notification: Fourier Ptychography Job Complete',
-                    text: err ? "Your job was prematurely terminated." : "Your job successfully completed.",
-                    attachments: (err)? [] : [{
-                                                filename: tarFile.originalname + ".result",
-                                                content: fs.createReadStream(extractionPath + ".result.png")
-                                            }]
-                };
-                transporter.sendMail(mailOptions, (error, info) => {
-                    if (error) {
-                        return console.log(error);
-                    }
-                    console.log('Message %s sent: %s', info.messageId, info.response);
-                });
+				console.log("output path should be " + extractionPath + ".result.png");
+				var myInterval = setInterval( function(){					
+					fs.stat(extractionPath + ".result.png", function(err2, stat) {
+						if (err2 == null)
+						{
+							var mailOptions = {
+								from: '"FPM Utilities" <superresolution6@gmail.com>',
+								to: req.body['email'] || "sujayt123@gmail.com",
+								subject: 'Automated Notification: Fourier Ptychography Job Complete',
+								text: err ? "Your job was prematurely terminated." : "Your job successfully completed.",
+								attachments: (err)? [] : [{
+															filename: tarFile.originalname + ".result",
+															content: fs.createReadStream(extractionPath + ".result.png")
+														}]
+							};
+							transporter.sendMail(mailOptions, (error, info) => {
+								if (error) {
+									return console.log(error);
+								}
+								console.log('Message %s sent: %s', info.messageId, info.response);
+								clearInterval(myInterval);								
+							});
+						}
+					})
+				}, 25000);
             });
     });
 }
